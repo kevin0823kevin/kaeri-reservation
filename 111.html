@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <title>帰拉麵 kaeri 中庄店 - 線上訂位</title>
+  <style>
+    body {
+      font-family: "微軟正黑體", sans-serif;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+      background-color: #fff8f0;
+      color: #333;
+    }
+    h2 {
+      color: #cc0000;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #cc0000;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #a30000;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: 700;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h2>帰拉麵 kaeri 中庄店 線上訂位</h2>
+  <form id="bookingForm">
+    <label>📅 訂位日期：
+      <input type="date" name="date" required />
+    </label>
+    <label>⏰ 訂位時間：
+      <select name="time" required>
+        <option value="12:00">12:00</option>
+        <option value="13:00">13:00</option>
+        <option value="14:00">14:00</option>
+        <option value="15:00">15:00</option>
+        <option value="16:00">16:00</option>
+        <option value="17:00">17:00</option>
+        <option value="18:00">18:00</option>
+        <option value="19:00">19:00</option>
+        <option value="20:00">20:00</option>
+        <option value="21:00">21:00</option>
+        <option value="22:00">22:00</option>
+        <option value="23:00">23:00</option>
+        <option value="00:00">00:00</option>
+      </select>
+    </label>
+    <label>👥 人數：
+      <select name="people" required>
+        <option value="1">1人</option>
+        <option value="2">2人</option>
+        <option value="3">3人</option>
+        <option value="4">4人</option>
+      </select>
+    </label>
+    <label>🙍 姓名：
+      <input type="text" name="name" required placeholder="請填寫姓名" />
+    </label>
+    <label>📞 電話：
+      <input type="tel" name="phone" required placeholder="請填寫電話" />
+    </label>
+    <label>📧 Email：
+      <input type="email" name="email" required placeholder="請填寫Email" />
+    </label>
+    <button type="submit">✅ 送出訂位</button>
+  </form>
+  <p id="result"></p>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxcmw-5eoLxYdM5bPtNi3Ic_FtlP6KZ7E0RQwWIEHZ1ZwSpzzkZkphq4QdGpcoXi2m/exec';
+    const form = document.getElementById('bookingForm');
+    const result = document.getElementById('result');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      result.textContent = "資料送出中，請稍候...";
+      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(() => {
+          result.textContent = "✅ 訂位成功，感謝您！";
+          form.reset();
+        })
+        .catch(() => {
+          result.textContent = "❌ 訂位失敗，請稍後再試";
+        });
+    });
+  </script>
+</body>
+</html>
